@@ -1,0 +1,199 @@
+plugins {
+    id 'application'
+    id 'org.openjfx.javafxplugin' version '0.1.0'
+}
+
+group = 'com.valkyrie'
+
+// Единственный источник версий: артефакты, jpackage и smokeTest читают их отсюда,
+// чтобы имя собранного zip не расходилось с чеклистом релиза.
+def launcherVersion = '1.0.6'
+def clientVersion = '0.9.0-beta'
+
+version = launcherVersion
+
+java.toolchain.languageVersion = JavaLanguageVersion.of(21)
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'net.java.dev.jna:jna-platform:5.15.0'
+}
+
+application {
+    mainClass = 'com.valkyrie.launcher.LauncherMain'
+}
+
+javafx {
+    version = '21.0.2'
+    modules = ['javafx.controls']
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8'
+}
+
+sourceSets.main.resources.srcDir('../src/main/resources')
+
+processResources {
+    include 'ui/**'
+    include 'sounds/**'
+    include 'bundled/**'
+    include "valkyrieclient-${clientVersion}.jar"
+    include 'assets/launcher-logo.png'
+    include 'assets/launcher-icon.png'
+    include 'assets/launcher-icon.ico'
+    include 'assets/SYSTEM-UICONS-UNLICENSE.txt'
+    include 'assets/LUCIDE-ICONS-LICENSE.txt'
+    include 'assets/valkyrieclient/font/nunito.ttf'
+    include 'assets/valkyrieclient/font/jetbrains-mono.ttf'
+    include 'assets/valkyrieclient/font/inter-regular.ttf'
+    include 'assets/valkyrieclient/font/inter-bold.ttf'
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+
+    // Gradle молча пропускает отсутствующий from-файл, а падало бы это только в
+    // рантайме на "Bundled Valkyrie client is missing" — уже после раздачи сборки.
+    // release/ в .gitignore, поэтому на чистом клоне промах штатный, а не редкий.
+    def bundledClient = file("../release/valkyrieclient-${clientVersion}.jar")
+    doFirst {
+        if (!bundledClient.isFile()) {
+            throw new GradleException(
+                "Bundled client JAR not found: ${bundledClient}\n" +
+                "Build the client first (.\\gradlew.bat build) and copy build/libs/valkyrieclient-${clientVersion}.jar into release/."
+            )
+        }
+    }
+    from(bundledClient) {
+        into 'bundled'
+        rename { 'valkyrieclient.jar' }
+    }
+}
+
+jar {
+    manifest {
+        attributes 'Main-Class': application.mainClass.get(),
+                   // Читается LauncherVersion: титульная строка, About и
+                   // launcher_version в аргументах игры берут номер отсюда.
+                   'Implementation-Title': 'Valkyrie Launcher',
+                   'Implementation-Version': launcherVersion
+    }
+    from('../LICENSE') { into 'META-INF' }
+}
+
+tasks.register('portableZip', Zip) {
+    dependsOn installDist
+    archiveFileName = "valkyrie-launcher-${project.version}.zip"
+    destinationDirectory = layout.buildDirectory.dir('distributions')
+    from(layout.buildDirectory.dir("install/${project.name}")) { into 'ValkyrieLauncher' }
+    from('README.md') { into 'ValkyrieLauncher' }
+    from('../LICENSE') { into 'ValkyrieLauncher' }
+}
+
+tasks.register('smokeTest', JavaExec) {
+    dependsOn classes
+    classpath = sourceSets.main.runtimeClasspath
+    mainClass = 'com.valkyrie.launcher.SmokeTest'
+    args = [project.findProperty('gameDir') ?: 'C:/Games/Minecraft/game',
+            project.findProperty('clientJar') ?: "../release/valkyrieclient-${clientVersion}.jar"]
+}
+
+tasks.register('bootstrapTest', JavaExec) {
+    dependsOn classes
+    classpath = sourceSets.main.runtimeClasspath
+    mainClass = 'com.valkyrie.launcher.BootstrapTest'
+    args = [project.findProperty('bootstrapDir') ?: "${System.getProperty('java.io.tmpdir')}/valkyrie-bootstrap-test"]
+}
+
+tasks.register('multiVersionTest', JavaExec) {
+    dependsOn classes
+    classpath = sourceSets.main.runtimeClasspath
+    mainClass = 'com.valkyrie.launcher.MultiVersionTest'
+    args = [project.findProperty('bootstrapDir') ?: "${System.getProperty('java.io.tmpdir')}/valkyrie-bootstrap-test"]
+}
+
+tasks.register('javaRuntimeTest', JavaExec) {
+    dependsOn classes
+    classpath = sourceSets.main.runtimeClasspath
+    mainClass = 'com.valkyrie.launcher.JavaRuntimeTest'
+    args = [project.findProperty('javaTestDir') ?: "${System.getProperty('java.io.tmpdir')}/valkyrie-java-test",
+            project.findProperty('javaMajor') ?: '25']
+}
+
+tasks.register('nativeImage', Exec) {
+    dependsOn installDist
+    def distribution = layout.buildDirectory.dir("install/${project.name}/lib")
+    def output = layout.buildDirectory.dir('native-current-final')
+    inputs.dir(distribution)
+    outputs.dir(output)
+    doFirst {
+        delete(output)
+    }
+    commandLine = [
+        "${System.getProperty('java.home')}/bin/jpackage",
+        '--type', 'app-image',
+        '--input', distribution.get().asFile,
+        '--main-jar', tasks.jar.archiveFileName.get(),
+        '--main-class', application.mainClass.get(),
+        '--add-modules', 'java.se,jdk.charsets,jdk.crypto.ec,jdk.crypto.cryptoki,jdk.dynalink,jdk.localedata,jdk.management,jdk.naming.dns,jdk.unsupported,jdk.zipfs',
+        '--jlink-options', '--strip-debug --no-man-pages --no-header-files',
+        '--name', 'ValkyrieLauncher',
+        '--icon', file('src/main/resources/assets/launcher-icon.ico'),
+        '--app-version', launcherVersion,
+        '--vendor', 'Valkyrie',
+        '--description', 'Valkyrie Client launcher',
+        '--dest', output.get().asFile
+    ]
+}
+
+tasks.register('nativeZip', Zip) {
+    dependsOn nativeImage
+    archiveFileName = "valkyrie-launcher-${project.version}-windows.zip"
+    destinationDirectory = layout.buildDirectory.dir('distributions')
+    from(layout.buildDirectory.dir('native-current-final/ValkyrieLauncher')) { into 'ValkyrieLauncher' }
+    from('README.md') { into 'ValkyrieLauncher' }
+    from('../LICENSE') { into 'ValkyrieLauncher' }
+}
+
+tasks.register('windowsInstaller', Exec) {
+    dependsOn installDist
+    def distribution = layout.buildDirectory.dir("install/${project.name}/lib")
+    def output = layout.buildDirectory.dir("installer-${launcherVersion}")
+    def wixBin = file('C:/Program Files (x86)/WiX Toolset v3.14/bin')
+    inputs.dir(distribution)
+    inputs.file('../LICENSE')
+    outputs.file(layout.buildDirectory.file("installer-${launcherVersion}/ValkyrieLauncher-${launcherVersion}.exe"))
+    doFirst {
+        if (!wixBin.isDirectory()) {
+            throw new GradleException('WiX Toolset 3.14 is required to build the Windows installer')
+        }
+        delete(output)
+        output.get().asFile.mkdirs()
+    }
+    environment 'PATH', "${wixBin};${System.getenv('PATH')}"
+    commandLine = [
+        "${System.getProperty('java.home')}/bin/jpackage",
+        '--type', 'exe',
+        '--input', distribution.get().asFile,
+        '--name', 'ValkyrieLauncher',
+        '--main-jar', tasks.jar.archiveFileName.get(),
+        '--main-class', application.mainClass.get(),
+        '--add-modules', 'java.se,jdk.charsets,jdk.crypto.ec,jdk.crypto.cryptoki,jdk.dynalink,jdk.localedata,jdk.management,jdk.naming.dns,jdk.unsupported,jdk.zipfs',
+        '--jlink-options', '--strip-debug --no-man-pages --no-header-files',
+        '--app-version', launcherVersion,
+        '--vendor', 'Valkyrie',
+        '--description', 'Valkyrie Client launcher',
+        '--copyright', 'Copyright (c) 2026 Valkyrie',
+        '--icon', file('src/main/resources/assets/launcher-icon.ico'),
+        '--license-file', file('../LICENSE'),
+        '--dest', output.get().asFile,
+        '--win-dir-chooser',
+        '--win-per-user-install',
+        '--win-menu',
+        '--win-menu-group', 'Valkyrie',
+        '--win-shortcut',
+        '--win-shortcut-prompt',
+        '--win-upgrade-uuid', '764b09d8-1890-4b66-83ef-15d32aa26355'
+    ]
+}

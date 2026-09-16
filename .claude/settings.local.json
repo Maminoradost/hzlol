@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "PowerShell(.\\\\gradlew.bat -p launcher compileJava --offline)",
+      "PowerShell(.\\\\gradlew.bat -p launcher build --offline)"
+    ]
+  }
+}

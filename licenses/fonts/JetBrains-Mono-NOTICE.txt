@@ -1,0 +1,4 @@
+JetBrains Mono Regular 2.305
+Copyright 2020 The JetBrains Mono Project Authors (https://github.com/JetBrains/JetBrainsMono)
+Licensed under the SIL Open Font License, Version 1.1.
+See OFL-1.1.txt.

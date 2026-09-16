@@ -1,0 +1,62 @@
+plugins {
+    id 'eclipse'
+    id 'maven-publish'
+    id 'net.minecraftforge.gradle' version '6.0.+'
+}
+
+version = '0.9.0-beta'
+group = 'com.valkyrie'
+archivesBaseName = 'valkyrieclient'
+
+java.toolchain.languageVersion = JavaLanguageVersion.of(21)
+
+java {
+    withSourcesJar()
+}
+
+repositories {
+    maven {
+        name = 'Minecraft Forge'
+        url = 'https://maven.minecraftforge.net'
+    }
+    mavenCentral()
+}
+
+minecraft {
+    mappings channel: 'official', version: '1.21.10'
+    
+    runs {
+        client {
+            workingDirectory project.file('run')
+            property 'forge.logging.markers', 'REGISTRIES'
+            property 'forge.logging.console.level', 'debug'
+            mods {
+                valkyrieclient {
+                    source sourceSets.main
+                }
+            }
+        }
+    }
+}
+
+dependencies {
+    minecraft 'net.minecraftforge:forge:1.21.10-60.1.0'
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8'
+}
+
+tasks.named('jar') {
+    from('LICENSE') { into 'META-INF' }
+    from('THIRD_PARTY_NOTICES.md') { into 'META-INF' }
+    from('licenses') { into 'META-INF/licenses' }
+}
+
+tasks.named('sourcesJar') {
+    from('README.md')
+    from('CHANGELOG.md')
+    from('LICENSE')
+    from('THIRD_PARTY_NOTICES.md')
+    from('licenses') { into 'licenses' }
+}

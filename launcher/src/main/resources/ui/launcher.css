@@ -1,0 +1,538 @@
+/* =============================================================================
+   Valkyrie Launcher — design tokens
+   -----------------------------------------------------------------------------
+   Каждый цвет листа обязан быть токеном. Литеральный цвет в правиле ниже — это
+   баг: тема его не переопределит, и в Sakura Night он останется светлым.
+
+   Ограничение JavaFX: looked-up colors работают ТОЛЬКО для <color>. Числовых
+   custom properties в JavaFX CSS нет, поэтому радиусы, отступы, размеры шрифта
+   и семейства остаются литералами — вынести их в токены невозможно.
+
+   .root.theme-dark переопределяет ровно этот же набор имён. Класс приходит из
+   ValkyrieLauncherApp: root.getStyleClass().addAll("root", "theme-" + theme).
+   ============================================================================= */
+.root {
+    -fx-font-family: "Inter", "Nunito";
+    -fx-background-radius: 18;
+    -fx-border-radius: 18;
+    -fx-border-width: 1;
+    -fx-background-color: linear-gradient(to bottom right, windowtop 0%, windowmid 52%, windowbottom 100%);
+    -fx-border-color: windowborder;
+
+    /* --- Окно и фон --- */
+    windowtop: #fffdfd;
+    windowmid: #fbf5f8;
+    windowbottom: #f6f1f7;
+    windowborder: rgba(117, 83, 101, 0.20);
+    tinttop: rgba(255,255,255,0.32);
+    tintbottom: rgba(255,255,255,0.04);
+    glowleftcolor: rgba(240,159,188,0.23);
+    glowleftfade: rgba(240,159,188,0);
+    glowrightcolor: rgba(179,160,225,0.16);
+    glowrightfade: rgba(179,160,225,0);
+
+    /* --- Поверхности --- */
+    cardbg: rgba(255,255,255,0.68);
+    cardborderlight: rgba(255,255,255,0.76);
+    cardborderaccent: rgba(226,151,178,0.32);
+    cardbordershadow: rgba(132,103,119,0.14);
+    panelbg: rgba(255,252,253,0.98);
+    subtlecardbg: rgba(248,241,244,0.72);
+    hoverbg: rgba(255,255,255,0.76);
+    hoverbgstrong: rgba(255,255,255,0.90);
+    hoverbgsoft: rgba(255,255,255,0.64);
+    rowhoverbg: rgba(250,240,245,0.72);
+    scrimbg: rgba(31,25,28,0.10);
+    scrimbgstrong: rgba(43,29,37,0.18);
+
+    /* --- Границы и разделители --- */
+    dividercolor: rgba(122,106,114,0.16);
+    inputbordercolor: rgba(122,106,114,0.20);
+    panelbordercolor: rgba(122,106,114,0.18);
+
+    /* --- Поля ввода --- */
+    inputbg: rgba(255,255,255,0.76);
+    inputbgalt: rgba(248,242,245,0.88);
+    inputbgfocus: white;
+
+    /* --- Чипы, мягкие кнопки, переключатели --- */
+    chipbg: rgba(244,237,241,0.86);
+    chipbghover: rgba(237,220,229,0.82);
+    buttonsoftbg: rgba(235,219,227,0.78);
+    buttonsoftbghover: rgba(224,196,208,0.86);
+    switchoffbg: #ded4d9;
+    badgebg: rgba(117,91,104,0.08);
+
+    /* --- Текст --- */
+    textcolor: #2b2329;
+    mutedcolor: #83747d;
+    subtletextcolor: #765f6b;
+    placeholdercolor: #a997a0;
+    badgetextcolor: #927c87;
+    oncolor: white;
+    playtextcolor: white;
+
+    /* --- Акцентная шкала (Sakura) --- */
+    accentsoft: #ebb0c4;
+    accentcolor: #df91aa;
+    accentmid: #d47d9c;
+    accentstrong: #c36c8c;
+    accentdeep: #b95e80;
+    accentmutedcolor: #ad7a8d;
+    accentborder: rgba(219,137,166,0.34);
+    accentborderhover: rgba(214,112,149,0.58);
+    accentbordersoft: rgba(225,147,175,0.36);
+    accentborderpanel: rgba(216,139,166,0.28);
+    accentbadgebg: rgba(235,154,184,0.18);
+    accentchipbg: rgba(226,151,178,0.14);
+
+    /* --- Состояния --- */
+    successcolor: #4fb98a;
+    successtextcolor: #5d8a75;
+    warncolor: #dd9a55;
+    warntextcolor: #b57c42;
+    errorcolor: #d96b78;
+    errortextcolor: #c76f7c;
+    errorhoverbg: rgba(217,107,120,0.18);
+
+    /* --- Кнопка Play --- */
+    playfrom: #cf879f;
+    playmid: #e4a4b8;
+    playto: #d58ca5;
+    playhoverfrom: #d88fa8;
+    playhovermid: #efb0c2;
+    playhoverto: #dc95ac;
+    playpressed: #c67e97;
+    installfrom: #9d8ab8;
+    installmid: #b3a0d2;
+    installto: #a391c0;
+    installhoverfrom: #a794c2;
+    installhovermid: #bfaddc;
+    installhoverto: #ad9bca;
+    updatefrom: #d9925f;
+    updatemid: #eab088;
+    updateto: #df9c6e;
+    updatehoverfrom: #e29c6a;
+    updatehovermid: #f2ba93;
+    updatehoverto: #e7a679;
+
+    /* --- Прогресс, скроллбары, слайдер --- */
+    progressfrom: #c9789a;
+    progressmid: #d47f9e;
+    progressto: #f1b5c7;
+    trackbg: rgba(122,106,114,0.14);
+    trackborder: rgba(122,106,114,0.10);
+    slidertrackcolor: rgba(131,105,119,0.18);
+    thumbfillcolor: white;
+    thumbcolor: rgba(122,106,114,0.20);
+    thumbaccentcolor: rgba(204,130,157,0.38);
+
+    /* --- Селектор версии --- */
+    triggerfrom: rgba(255,255,255,0.86);
+    triggerto: rgba(253,239,245,0.82);
+    triggerhoverfrom: #ffffff;
+    triggerhoverto: #fff1f6;
+    listhoverbg: rgba(244,226,234,0.72);
+    listselectedfrom: rgba(240,198,214,0.72);
+    listselectedto: rgba(250,238,243,0.86);
+    listselectedborder: rgba(216,123,157,0.35);
+    listrecommendedfrom: rgba(244,205,220,0.72);
+    listrecommendedto: rgba(248,236,245,0.78);
+
+    /* --- Тени --- */
+    shadowsoft: rgba(61,38,50,0.06);
+    shadowcard: rgba(64,39,52,0.14);
+    shadowpanel: rgba(35,28,32,0.17);
+    shadowdrawer: rgba(0,0,0,0.15);
+    shadowoverlay: rgba(39,22,31,0.24);
+    shadowtoast: rgba(35,28,32,0.15);
+    shadowlogo: rgba(221,129,161,0.17);
+    shadowaccent: rgba(223,145,170,0.13);
+    shadowplay: rgba(165,84,112,0.30);
+    shadowplayhover: rgba(165,84,112,0.38);
+    shadowinstall: rgba(107,88,140,0.30);
+    shadowupdate: rgba(163,101,54,0.32);
+    shadowpress: rgba(42,34,38,0.10);
+    shadowprogress: rgba(212,127,158,0.45);
+    shadowfilter: rgba(190,96,130,0.20);
+    shadowthumb: rgba(175,82,116,0.24);
+}
+
+/* =============================================================================
+   Sakura Night — тёмная тема.
+   Переопределяет только токены: ни одного селектора компонента здесь нет и быть
+   не должно. Если тёмная тема требует правки компонента, значит компонент
+   держит литеральный цвет — исправлять надо там, а не тут.
+   ============================================================================= */
+.root.theme-dark {
+    windowtop: #171219;
+    windowmid: #1c1621;
+    windowbottom: #221a28;
+    windowborder: rgba(237,205,221,0.13);
+    tinttop: rgba(255,255,255,0.045);
+    tintbottom: rgba(255,255,255,0.008);
+    glowleftcolor: rgba(224,124,163,0.20);
+    glowleftfade: rgba(224,124,163,0);
+    glowrightcolor: rgba(150,127,205,0.17);
+    glowrightfade: rgba(150,127,205,0);
+
+    cardbg: rgba(255,255,255,0.055);
+    cardborderlight: rgba(255,255,255,0.10);
+    cardborderaccent: rgba(232,163,185,0.26);
+    cardbordershadow: rgba(0,0,0,0.34);
+    panelbg: rgba(31,24,36,0.985);
+    subtlecardbg: rgba(255,255,255,0.045);
+    hoverbg: rgba(255,255,255,0.075);
+    hoverbgstrong: rgba(255,255,255,0.11);
+    hoverbgsoft: rgba(255,255,255,0.055);
+    rowhoverbg: rgba(255,255,255,0.055);
+    scrimbg: rgba(0,0,0,0.42);
+    scrimbgstrong: rgba(0,0,0,0.55);
+
+    dividercolor: rgba(255,255,255,0.09);
+    inputbordercolor: rgba(255,255,255,0.13);
+    panelbordercolor: rgba(255,255,255,0.10);
+
+    inputbg: rgba(255,255,255,0.06);
+    inputbgalt: rgba(255,255,255,0.05);
+    inputbgfocus: rgba(255,255,255,0.10);
+
+    chipbg: rgba(255,255,255,0.06);
+    chipbghover: rgba(255,255,255,0.10);
+    buttonsoftbg: rgba(255,255,255,0.085);
+    buttonsoftbghover: rgba(255,255,255,0.13);
+    switchoffbg: #4b3f49;
+    badgebg: rgba(255,255,255,0.07);
+
+    textcolor: #f3ebef;
+    mutedcolor: #ab9ca6;
+    subtletextcolor: #c9b6c0;
+    placeholdercolor: #8b7c86;
+    badgetextcolor: #a4939d;
+    oncolor: #20182a;
+    playtextcolor: white;
+
+    accentsoft: #f0bccd;
+    accentcolor: #e8a3b9;
+    accentmid: #dd8ea8;
+    accentstrong: #d47f9b;
+    accentdeep: #c56f8b;
+    accentmutedcolor: #bb96a6;
+    accentborder: rgba(232,163,185,0.34);
+    accentborderhover: rgba(240,188,205,0.58);
+    accentbordersoft: rgba(232,163,185,0.30);
+    accentborderpanel: rgba(232,163,185,0.24);
+    accentbadgebg: rgba(232,163,185,0.16);
+    accentchipbg: rgba(232,163,185,0.13);
+
+    successcolor: #5cc79a;
+    successtextcolor: #7fc7a8;
+    warncolor: #e5aa6a;
+    warntextcolor: #dfa76a;
+    errorcolor: #e88b95;
+    errortextcolor: #e08d97;
+    errorhoverbg: rgba(232,139,149,0.22);
+
+    playfrom: #d2809d;
+    playmid: #e29fb6;
+    playto: #d787a3;
+    playhoverfrom: #dc8ba7;
+    playhovermid: #ecabc0;
+    playhoverto: #e192ad;
+    playpressed: #c1728f;
+    installfrom: #8f7cab;
+    installmid: #a693c6;
+    installto: #9583b4;
+    installhoverfrom: #9b88b7;
+    installhovermid: #b29fd2;
+    installhoverto: #a18fc0;
+    updatefrom: #c9834f;
+    updatemid: #d9a078;
+    updateto: #cf8c5e;
+    updatehoverfrom: #d38d5a;
+    updatehovermid: #e3aa83;
+    updatehoverto: #d99669;
+
+    progressfrom: #d0819f;
+    progressmid: #dc8aa8;
+    progressto: #f0b8ca;
+    trackbg: rgba(255,255,255,0.10);
+    trackborder: rgba(255,255,255,0.07);
+    slidertrackcolor: rgba(255,255,255,0.11);
+    thumbfillcolor: #ecd9e2;
+    thumbcolor: rgba(255,255,255,0.16);
+    thumbaccentcolor: rgba(232,163,185,0.34);
+
+    triggerfrom: rgba(255,255,255,0.07);
+    triggerto: rgba(232,163,185,0.07);
+    triggerhoverfrom: rgba(255,255,255,0.11);
+    triggerhoverto: rgba(232,163,185,0.12);
+    listhoverbg: rgba(255,255,255,0.06);
+    listselectedfrom: rgba(232,163,185,0.20);
+    listselectedto: rgba(232,163,185,0.09);
+    listselectedborder: rgba(232,163,185,0.38);
+    listrecommendedfrom: rgba(232,163,185,0.14);
+    listrecommendedto: rgba(232,163,185,0.06);
+
+    shadowsoft: rgba(0,0,0,0.30);
+    shadowcard: rgba(0,0,0,0.46);
+    shadowpanel: rgba(0,0,0,0.50);
+    shadowdrawer: rgba(0,0,0,0.52);
+    shadowoverlay: rgba(0,0,0,0.58);
+    shadowtoast: rgba(0,0,0,0.48);
+    shadowlogo: rgba(232,163,185,0.22);
+    shadowaccent: rgba(232,163,185,0.20);
+    shadowplay: rgba(0,0,0,0.42);
+    shadowplayhover: rgba(0,0,0,0.50);
+    shadowinstall: rgba(0,0,0,0.42);
+    shadowupdate: rgba(0,0,0,0.42);
+    shadowpress: rgba(0,0,0,0.35);
+    shadowprogress: rgba(232,163,185,0.42);
+    shadowfilter: rgba(0,0,0,0.35);
+    shadowthumb: rgba(0,0,0,0.40);
+}
+
+.shell { -fx-background-color: transparent; -fx-padding: 6; }
+.background-tint {
+    -fx-background-radius: 18;
+    -fx-background-color: linear-gradient(to bottom, tinttop, tintbottom);
+}
+.ambient-glow { -fx-background-radius: 999; -fx-mouse-transparent: true; }
+.ambient-glow-left {
+    -fx-pref-width: 390; -fx-pref-height: 390; -fx-max-width: 390; -fx-max-height: 390;
+    -fx-translate-x: -360; -fx-translate-y: -180;
+    -fx-background-color: radial-gradient(center 50% 50%, radius 50%, glowleftcolor, glowleftfade);
+}
+.ambient-glow-right {
+    -fx-pref-width: 460; -fx-pref-height: 460; -fx-max-width: 460; -fx-max-height: 460;
+    -fx-translate-x: 380; -fx-translate-y: 250;
+    -fx-background-color: radial-gradient(center 50% 50%, radius 50%, glowrightcolor, glowrightfade);
+}
+.title-bar { -fx-padding: 10 12 9 15; -fx-min-height: 52; }
+.brand-name { -fx-font-family: "Georgia"; -fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: textcolor; }
+.brand-version { -fx-font-family: "JetBrains Mono"; -fx-font-size: 10px; -fx-text-fill: mutedcolor; }
+.hero { -fx-padding: 4 0 12 0; }
+.hero-logo { -fx-effect: dropshadow(gaussian, shadowlogo, 24, 0.1, 0, 5); }
+.hero-card {
+    -fx-padding: 32 28 24 28;
+    -fx-background-color: cardbg;
+    -fx-background-radius: 26;
+    -fx-border-radius: 26;
+    -fx-border-width: 1;
+    -fx-border-color: cardborderlight cardborderaccent cardbordershadow cardborderlight;
+    -fx-effect: dropshadow(gaussian, shadowcard, 32, 0.04, 0, 12);
+}
+/* Дисплейная строка: serif, как .font-display у Claude (единственное место с засечками) */
+.hero-subtitle {
+    -fx-font-family: "Georgia";
+    -fx-font-size: 17px;
+    -fx-font-weight: normal;
+    -fx-text-fill: subtletextcolor;
+    -fx-padding: 0 0 7 0;
+    -fx-alignment: center;
+}
+
+.nav-button, .icon-button, .window-button {
+    -fx-background-color: transparent; -fx-text-fill: mutedcolor; -fx-font-size: 12px;
+    -fx-padding: 9 12; -fx-background-radius: 12; -fx-border-radius: 12; -fx-border-color: transparent;
+}
+.nav-button:hover, .icon-button:hover, .window-button:hover { -fx-background-color: hoverbg; -fx-text-fill: textcolor; }
+.close-button:hover { -fx-background-color: errorhoverbg; -fx-text-fill: errorcolor; }
+.icon-button, .window-button { -fx-min-width: 36; -fx-min-height: 36; -fx-padding: 0; -fx-font-size: 15px; }
+.button-icon { -fx-opacity: 0.84; }
+.icon-stroke { -fx-fill: transparent; -fx-stroke: mutedcolor; -fx-stroke-width: 1.15; -fx-stroke-line-cap: round; -fx-stroke-line-join: round; }
+.icon-fill { -fx-fill: mutedcolor; -fx-stroke: transparent; }
+.icon-circle { -fx-fill: transparent; -fx-stroke: mutedcolor; -fx-stroke-width: 1.1; }
+.button:hover .icon-stroke, .button:focused .icon-stroke { -fx-stroke: textcolor; }
+.button:hover .icon-fill, .button:focused .icon-fill { -fx-fill: textcolor; }
+
+.version-trigger {
+    -fx-min-height: 62; -fx-padding: 0 15;
+    -fx-background-color: linear-gradient(to right, triggerfrom, triggerto);
+    -fx-background-radius: 17; -fx-border-radius: 17;
+    -fx-border-color: accentborder;
+    -fx-effect: dropshadow(gaussian, shadowsoft, 12, 0.02, 0, 3);
+}
+.version-trigger:hover { -fx-background-color: linear-gradient(to right, triggerhoverfrom, triggerhoverto); -fx-border-color: accentborderhover; }
+.version-trigger:focused { -fx-border-width: 1.5; -fx-border-color: accentcolor; }
+.version-trigger:disabled { -fx-opacity: 0.58; }
+.version-trigger-content { -fx-pref-width: 376; }
+.version-trigger-content > .label:first-child { -fx-text-fill: accentmid; -fx-font-size: 17px; }
+.version-trigger-title { -fx-font-family: "Georgia"; -fx-font-size: 13px; -fx-font-weight: bold; -fx-text-fill: textcolor; }
+.version-trigger-meta { -fx-font-family: "JetBrains Mono"; -fx-font-size: 9px; -fx-text-fill: mutedcolor; }
+.version-chevron { -fx-font-size: 24px; -fx-text-fill: accentmutedcolor; -fx-padding: 0 0 2 3; }
+.recommended-badge {
+    -fx-font-family: "Georgia"; -fx-font-size: 8px; -fx-font-weight: bold; -fx-text-fill: accentdeep;
+    -fx-background-color: accentbadgebg; -fx-background-radius: 99; -fx-padding: 4 7;
+}
+
+.field-group { -fx-padding: 1 0 0 0; }
+.nickname-field {
+    -fx-min-height: 52; -fx-background-color: inputbg; -fx-border-color: inputbordercolor;
+    -fx-border-radius: 15; -fx-background-radius: 15; -fx-padding: 0 16;
+    -fx-font-size: 15px; -fx-text-fill: textcolor; -fx-prompt-text-fill: mutedcolor; -fx-alignment: center;
+}
+.nickname-field:hover { -fx-background-color: hoverbgstrong; }
+.nickname-field:focused { -fx-border-color: accentcolor; -fx-border-width: 1.5; -fx-effect: dropshadow(gaussian, shadowaccent, 12, 0.05, 0, 2); }
+.nickname-field:invalid { -fx-text-fill: errorcolor; }
+.validation { -fx-min-height: 13; -fx-font-size: 10px; -fx-text-fill: mutedcolor; -fx-padding: 0 4; }
+.validation:error { -fx-text-fill: errorcolor; }
+
+.play-button {
+    -fx-min-height: 56; -fx-background-radius: 16; -fx-border-radius: 16;
+    -fx-background-color: linear-gradient(to right, playfrom 0%, playmid 52%, playto 100%);
+    -fx-border-color: cardborderlight; -fx-border-width: 1;
+    -fx-text-fill: playtextcolor; -fx-font-family: "Georgia"; -fx-font-size: 13px; -fx-font-weight: bold;
+    -fx-effect: dropshadow(gaussian, shadowplay, 18, 0.08, 0, 6);
+}
+.play-button:hover { -fx-background-color: linear-gradient(to right, playhoverfrom, playhovermid, playhoverto); -fx-effect: dropshadow(gaussian, shadowplayhover, 22, 0.10, 0, 8); }
+.play-button:pressed { -fx-background-color: playpressed; -fx-effect: dropshadow(gaussian, shadowpress, 8, 0, 0, 2); }
+.play-button:disabled { -fx-opacity: 0.55; -fx-effect: none; }
+/* Состояния-персонажи: установка — нейтральный лиловый, обновление — тёплый акцент */
+.play-button:install {
+    -fx-background-color: linear-gradient(to right, installfrom 0%, installmid 52%, installto 100%);
+    -fx-effect: dropshadow(gaussian, shadowinstall, 18, 0.08, 0, 6);
+}
+.play-button:install:hover { -fx-background-color: linear-gradient(to right, installhoverfrom, installhovermid, installhoverto); }
+.play-button:update {
+    -fx-background-color: linear-gradient(to right, updatefrom 0%, updatemid 52%, updateto 100%);
+    -fx-effect: dropshadow(gaussian, shadowupdate, 18, 0.08, 0, 6);
+}
+.play-button:update:hover { -fx-background-color: linear-gradient(to right, updatehoverfrom, updatehovermid, updatehoverto); }
+.play-button:busy { -fx-opacity: 0.86; }
+.play-button .icon-fill { -fx-fill: playtextcolor; }
+.play-button .button-icon { -fx-scale-x: 0.72; -fx-scale-y: 0.72; }
+.launch-progress { -fx-pref-height: 6; -fx-min-height: 6; -fx-max-height: 6; -fx-accent: accentcolor; -fx-padding: 0 2; }
+.launch-progress > .track {
+    -fx-background-color: trackbg;
+    -fx-background-radius: 99;
+    -fx-background-insets: 0;
+    -fx-border-color: trackborder;
+    -fx-border-radius: 99;
+}
+.launch-progress > .bar {
+    -fx-background-color: linear-gradient(to right, progressfrom, progressmid 45%, progressto);
+    -fx-background-radius: 99;
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+    -fx-effect: dropshadow(gaussian, shadowprogress, 6, 0.2, 0, 0);
+}
+.launch-status { -fx-padding: 2 0 0 0; }
+.install-badge { -fx-padding: 0 4; }
+.install-badge-dot { -fx-font-size: 8px; -fx-text-fill: mutedcolor; }
+.install-badge-text { -fx-font-family: "JetBrains Mono"; -fx-font-size: 9px; -fx-text-fill: mutedcolor; }
+.install-badge:ok .install-badge-dot { -fx-text-fill: successcolor; }
+.install-badge:ok .install-badge-text { -fx-text-fill: successtextcolor; }
+.install-badge:update .install-badge-dot { -fx-text-fill: warncolor; }
+.install-badge:update .install-badge-text { -fx-text-fill: warntextcolor; }
+.install-badge:error .install-badge-dot { -fx-text-fill: errorcolor; }
+.install-badge:error .install-badge-text { -fx-text-fill: errortextcolor; }
+.status-label { -fx-font-size: 10px; -fx-text-fill: successcolor; }
+.status-label:error { -fx-text-fill: errortextcolor; }
+.status-label:accent { -fx-text-fill: accentmid; }
+.version-label { -fx-font-size: 10px; -fx-text-fill: mutedcolor; }
+
+.footer { -fx-padding: 6 15 7 15; -fx-font-size: 9px; }
+.footer-platform { -fx-text-fill: mutedcolor; }
+.footer-chip {
+    -fx-font-family: "JetBrains Mono"; -fx-font-size: 8px; -fx-text-fill: accentmutedcolor;
+    -fx-background-color: accentchipbg; -fx-background-radius: 99; -fx-padding: 3 6;
+}
+.footer-link { -fx-background-color: transparent; -fx-text-fill: mutedcolor; -fx-padding: 4 7; -fx-background-radius: 8; -fx-font-size: 9px; }
+.footer-link:hover { -fx-background-color: hoverbgsoft; -fx-text-fill: textcolor; }
+
+.version-browser-layer { -fx-padding: 64 36 40 36; }
+.version-browser-scrim { -fx-background-color: scrimbgstrong; -fx-background-radius: 18; }
+.version-browser-card {
+    -fx-padding: 23 24 20 24;
+    -fx-background-color: panelbg; -fx-background-radius: 24; -fx-border-radius: 24;
+    -fx-border-color: accentbordersoft; -fx-effect: dropshadow(gaussian, shadowoverlay, 36, 0.07, 0, 14);
+}
+.version-browser-eyebrow { -fx-font-family: "Georgia"; -fx-font-size: 9px; -fx-font-weight: bold; -fx-text-fill: accentstrong; -fx-alignment: center; }
+.version-browser-title { -fx-font-family: "Georgia"; -fx-font-size: 25px; -fx-font-weight: bold; -fx-text-fill: textcolor; -fx-alignment: center; }
+.version-browser-description { -fx-font-size: 11px; -fx-text-fill: mutedcolor; -fx-alignment: center; }
+.version-search {
+    -fx-min-height: 44; -fx-background-color: inputbgalt; -fx-background-radius: 13; -fx-border-radius: 13;
+    -fx-border-color: inputbordercolor; -fx-padding: 0 14; -fx-font-size: 12px; -fx-text-fill: textcolor; -fx-prompt-text-fill: placeholdercolor;
+}
+.version-search:focused { -fx-background-color: inputbgfocus; -fx-border-color: accentcolor; }
+.version-filter-bar { -fx-padding: 0 1; }
+.version-filter {
+    -fx-background-color: chipbg; -fx-background-radius: 99; -fx-border-radius: 99;
+    -fx-text-fill: mutedcolor; -fx-font-size: 10px; -fx-padding: 7 13;
+}
+.version-filter:hover { -fx-background-color: chipbghover; }
+.version-filter:selected { -fx-background-color: accentcolor; -fx-text-fill: oncolor; -fx-effect: dropshadow(gaussian, shadowfilter, 10, 0.04, 0, 3); }
+.version-list { -fx-background-color: transparent; -fx-border-color: transparent; -fx-padding: 2 2 2 0; }
+.version-list .virtual-flow, .version-list .clipped-container, .version-list .sheet { -fx-background-color: transparent; }
+.version-list .list-cell {
+    -fx-background-color: transparent; -fx-padding: 5 8; -fx-background-radius: 15; -fx-border-radius: 15; -fx-border-color: transparent;
+}
+.version-list .list-cell:filled:hover { -fx-background-color: listhoverbg; }
+.version-list .list-cell:filled:selected { -fx-background-color: linear-gradient(to right, listselectedfrom, listselectedto); -fx-border-color: listselectedborder; }
+.version-list .list-cell:recommended { -fx-background-color: linear-gradient(to right, listrecommendedfrom, listrecommendedto); }
+.version-row { -fx-pref-width: 520; -fx-padding: 0 8; }
+.version-row > .label:first-child { -fx-text-fill: accentmid; -fx-font-size: 16px; }
+.version-row-title { -fx-font-family: "Georgia"; -fx-font-size: 12px; -fx-font-weight: bold; -fx-text-fill: textcolor; }
+.version-row-meta { -fx-font-family: "JetBrains Mono"; -fx-font-size: 8px; -fx-text-fill: mutedcolor; }
+.version-type-badge { -fx-font-family: "JetBrains Mono"; -fx-font-size: 8px; -fx-text-fill: badgetextcolor; -fx-background-color: badgebg; -fx-background-radius: 99; -fx-padding: 4 7; }
+.version-list .scroll-bar:vertical { -fx-pref-width: 6; -fx-background-color: transparent; }
+.version-list .scroll-bar:vertical .thumb { -fx-background-color: thumbaccentcolor; -fx-background-radius: 99; }
+.version-list .scroll-bar .increment-button, .version-list .scroll-bar .decrement-button { -fx-opacity: 0; -fx-padding: 0; }
+
+.drawer-scrim, .settings-scrim { -fx-background-color: scrimbg; -fx-background-radius: 18; }
+.drawer {
+    -fx-background-color: panelbg; -fx-border-color: panelbordercolor; -fx-border-width: 0 0 0 1;
+    -fx-padding: 22 24; -fx-effect: dropshadow(gaussian, shadowdrawer, 26, 0.03, -5, 0);
+}
+.drawer-eyebrow { -fx-font-family: "Georgia"; -fx-font-size: 9px; -fx-font-weight: bold; -fx-text-fill: accentmid; }
+.drawer-title { -fx-font-family: "Georgia"; -fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: textcolor; }
+.drawer > .label { -fx-text-fill: mutedcolor; }
+.changes-scroll, .changes-scroll > .viewport { -fx-background-color: transparent; -fx-border-color: transparent; }
+.changes { -fx-padding: 14 6 14 0; }
+.change-row { -fx-padding: 10 2; -fx-border-color: transparent transparent dividercolor transparent; -fx-border-width: 0 0 1 0; }
+.change-dot { -fx-text-fill: accentcolor; -fx-font-size: 11px; }
+.change-text { -fx-text-fill: textcolor; -fx-font-size: 12px; }
+.scroll-bar:vertical { -fx-pref-width: 5; -fx-background-color: transparent; }
+.scroll-bar:vertical .thumb { -fx-background-color: thumbcolor; -fx-background-radius: 99; }
+.scroll-bar .increment-button, .scroll-bar .decrement-button { -fx-opacity: 0; -fx-padding: 0; }
+
+.settings-pane {
+    -fx-background-color: panelbg; -fx-background-radius: 20; -fx-border-radius: 20;
+    -fx-border-color: accentborderpanel; -fx-padding: 18; -fx-effect: dropshadow(gaussian, shadowpanel, 26, 0.03, 0, 8);
+}
+.settings-title { -fx-font-family: "Georgia"; -fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: textcolor; }
+.settings-scroll, .settings-scroll > .viewport { -fx-background-color: transparent; -fx-border-color: transparent; }
+.settings-scroll { -fx-padding: 0 4 0 0; }
+.settings-section { -fx-font-family: "Georgia"; -fx-font-size: 8px; -fx-font-weight: bold; -fx-text-fill: accentmutedcolor; -fx-padding: 10 0 2 2; }
+.settings-control-row { -fx-padding: 9 8; -fx-background-radius: 12; }
+.settings-control-row:hover { -fx-background-color: rowhoverbg; }
+.settings-control-row .button-icon { -fx-scale-x: 0.72; -fx-scale-y: 0.72; }
+.settings-row-title { -fx-font-family: "Georgia"; -fx-font-size: 11px; -fx-font-weight: bold; -fx-text-fill: textcolor; }
+.settings-row-description { -fx-font-size: 9px; -fx-text-fill: mutedcolor; }
+.settings-value { -fx-font-family: "JetBrains Mono"; -fx-font-size: 9px; -fx-text-fill: accentmutedcolor; -fx-padding: 0 9 3 9; }
+.settings-card { -fx-background-color: subtlecardbg; -fx-background-radius: 14; -fx-padding: 1 0 9 0; }
+.settings-action-row { -fx-background-color: transparent; -fx-padding: 0; -fx-background-radius: 12; }
+.settings-action-row:hover { -fx-background-color: rowhoverbg; }
+.settings-action-row > .graphic { -fx-max-width: infinity; }
+.settings-action-value { -fx-font-family: "Georgia"; -fx-font-size: 10px; -fx-font-weight: bold; -fx-text-fill: accentstrong; }
+.settings-action-small { -fx-background-color: buttonsoftbg; -fx-background-radius: 9; -fx-text-fill: subtletextcolor; -fx-font-size: 9px; -fx-padding: 6 9; }
+.settings-action-small:hover { -fx-background-color: buttonsoftbghover; -fx-text-fill: textcolor; }
+.settings-switch { -fx-min-width: 38; -fx-pref-width: 38; -fx-min-height: 21; -fx-pref-height: 21; -fx-background-radius: 99; -fx-background-color: switchoffbg; -fx-padding: 0 17 1 3; -fx-text-fill: thumbfillcolor; -fx-font-size: 15px; }
+.settings-switch:selected { -fx-background-color: accentcolor; -fx-padding: 0 3 1 17; }
+.settings-switch:focused { -fx-border-color: accentborderhover; -fx-border-radius: 99; }
+.memory-slider { -fx-padding: 1 10 3 10; }
+.memory-slider .track { -fx-background-color: slidertrackcolor; -fx-background-radius: 99; -fx-pref-height: 4; }
+.memory-slider .thumb { -fx-background-color: thumbfillcolor; -fx-border-color: accentcolor; -fx-border-radius: 99; -fx-background-radius: 99; -fx-effect: dropshadow(gaussian, shadowthumb, 8, 0.06, 0, 2); }
+.memory-slider:disabled { -fx-opacity: 0.45; }
+.settings-about { -fx-font-family: "JetBrains Mono"; -fx-font-size: 9px; -fx-text-fill: mutedcolor; -fx-line-spacing: 3; -fx-padding: 5 2 0 2; }
+
+.toast {
+    -fx-background-color: panelbg; -fx-border-color: transparent transparent transparent accentcolor;
+    -fx-border-width: 0 0 0 2; -fx-background-radius: 12; -fx-padding: 11 13;
+    -fx-effect: dropshadow(gaussian, shadowtoast, 18, 0.03, 0, 5);
+}
+.toast-text { -fx-text-fill: textcolor; -fx-font-size: 11px; }
+.toast-success-icon, .toast-error-icon { -fx-min-width: 23; -fx-min-height: 23; -fx-alignment: center; -fx-background-radius: 99; -fx-text-fill: oncolor; -fx-font-family: "Georgia"; -fx-font-size: 11px; -fx-font-weight: bold; }
+.toast-success-icon { -fx-background-color: successcolor; }
+.toast-error-icon { -fx-background-color: errorcolor; }

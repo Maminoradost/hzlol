@@ -1,0 +1,26 @@
+modLoader="javafml"
+loaderVersion="[60,)"
+license="GPL-3.0-or-later"
+
+[[mods]]
+modId="valkyrieclient"
+version="${file.jarVersion}"
+displayName="Valkyrie Client"
+authors="Valkyrie contributors"
+description='''
+Experimental client-side combat, utility, HUD and visual mod with a clean Sakura interface.
+'''
+
+[[dependencies.valkyrieclient]]
+modId="forge"
+mandatory=true
+versionRange="[60.1.0,)"
+ordering="NONE"
+side="CLIENT"
+
+[[dependencies.valkyrieclient]]
+modId="minecraft"
+mandatory=true
+versionRange="[1.21.10,1.22)"
+ordering="NONE"
+side="CLIENT"

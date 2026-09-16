@@ -1,0 +1,4 @@
+Nunito ExtraLight 3.602
+Copyright 2014 The Nunito Project Authors (https://github.com/Fonthausen/NunitoSans)
+Licensed under the SIL Open Font License, Version 1.1.
+See OFL-1.1.txt.

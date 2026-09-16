@@ -1,0 +1,44 @@
+# Gradle
+.gradle/
+build/
+bin/
+out/
+
+# Eclipse
+.classpath
+.project
+.settings/
+
+# IntelliJ IDEA
+.idea/
+*.iml
+*.iws
+*.ipr
+
+# VS Code
+.vscode/
+
+# Minecraft
+run/
+eclipse/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Build artifacts that must never be committed
+/META-INF/
+
+# Reference checkouts of third-party projects
+_ref_*/
+
+# Secrets: never commit files carrying API tokens
+*.env
+freeclaude.bat
+HANDOFF.txt
+bc.log
+*.log
+*.zip
+/release/
+/net/
+.cursor/

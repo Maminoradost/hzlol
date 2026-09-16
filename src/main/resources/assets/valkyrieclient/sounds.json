@@ -1,0 +1,12 @@
+{
+  "cream_click": {
+    "sounds": [
+      {
+        "name": "valkyrieclient:ui/cream_click",
+        "stream": false,
+        "volume": 0.62,
+        "pitch": 1.0
+      }
+    ]
+  }
+}

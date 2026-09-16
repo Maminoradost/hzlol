@@ -1,0 +1,12 @@
+{
+  "version": "1.0.0",
+  "minecraftVersion": "1.21.10",
+  "forgeProfile": "Forge 1.21.10",
+  "jarUrl": "valkyrieclient-1.0.0.jar",
+  "sha256": "REPLACE_WITH_LOWERCASE_SHA256",
+  "changelog": [
+    "Stable Valkyrie Client release",
+    "Sakura interface and visual pipeline",
+    "Coordinated Valkyrie Flow combat engine"
+  ]
+}

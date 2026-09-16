@@ -1,0 +1,8 @@
+{
+  "pack": {
+    "description": "Valkyrie Client resources",
+    "pack_format": 69,
+    "min_format": [69, 0],
+    "max_format": [81, 0]
+  }
+}
